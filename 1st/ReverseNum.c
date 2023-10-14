@@ -2,7 +2,7 @@
 
 int main () 
 {
-    int a, r;
+    int a, r, n = 0;
     printf("Enter number to reverse: ");
     scanf("%d", &a);
     
@@ -12,10 +12,11 @@ int main ()
     while (a != 0) 
     {
         r = a % 10;
-        a = a - r;
-        a = a / 10;
-        printf("%d", r);
+        a = (a - r)/10;
+        n = (n * 10) + r;
+
     }
+    printf("%d", n);
     
     
 /*
@@ -34,7 +35,12 @@ int main ()
     printf("%s", s);
     
     */
+
+    #ifdef WIN32
+
+    getch();
     
+    #endif
     
     return 0;
     
