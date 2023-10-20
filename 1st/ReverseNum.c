@@ -7,8 +7,6 @@ int main ()
     scanf("%d", &a);
     
     
-    printf("The reversed number is ");
-    
     while (a != 0) 
     {
         r = a % 10;
@@ -16,7 +14,7 @@ int main ()
         n = (n * 10) + r;
 
     }
-    printf("%d", n);
+    printf("The reversed number is %d\n", n);
     
     
 /*

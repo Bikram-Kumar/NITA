@@ -8,12 +8,7 @@ int main()
     printf("Enter number for prime test: ");
     scanf("%d", &a);
     
-    if (a == 1) {
-        printf("The number %d is prime.\n", a);
-        return 0;
-    }
-    
-    s = (int) sqrt(a);
+    s = sqrt(a);
     
     for (int i = 2; i <= s; i++) {
         if (a % i == 0) {
