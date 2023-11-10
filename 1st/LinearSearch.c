@@ -26,7 +26,7 @@ int main() {
     }
     
     if (!flag) {
-        printf("Value not found in array\n");
+        printf("Value not found in array.\n");
     }
     
     return 0;
