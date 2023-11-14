@@ -18,6 +18,10 @@ void prompt_mode();
 void add_player(), retrieve_player();
 void print_border();
 
+
+
+
+
 int main() {
     char data[1000];
     print_border();
@@ -25,11 +29,6 @@ int main() {
     print_border();
     
     prompt_mode();
-    
-  
-    
-    
-    
     
     return 0;
 }
@@ -115,8 +114,7 @@ void retrieve_player() {
         
         printf("Player ID: %d\n\n", id);
         printf("Gamer Tag: %s\n", tag);
-        printf("First Name: %s\n", fname);
-        printf("Last Name: %s\n", lname);
+        printf("Name: %s %s\n", fname, lname);
         printf("Age: %d\n", age);
         printf("Mobile Number: %lld\n", mobile);
         printf("Email ID: %s\n", email);
@@ -126,11 +124,13 @@ void retrieve_player() {
         data_printed = 1;
     }
     
+    
+    
     fclose(dbptr);
     
     
     if (!data_printed) {
-        printf("Player not found!");
+        printf("No Player Found.");
     } else {
         printf("Task done successfully!");
     }
@@ -143,7 +143,7 @@ void retrieve_player() {
 }
 
 void print_border() {
-    printf("\n\n-------------------------------------------------\n\n");
+    printf("\n\n-------------------------------------------------------\n\n");
 }
 
 
