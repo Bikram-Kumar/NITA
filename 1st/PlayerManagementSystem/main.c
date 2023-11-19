@@ -28,6 +28,9 @@ int main() {
     printf("\tWelcome to Player Management System");
     print_border();
     
+    
+    srand(time(NULL));
+
     prompt_mode();
     
     return 0;
@@ -50,8 +53,6 @@ void prompt_mode() {
 
 
 void add_player() {
-    time_t t;
-    srand((unsigned)time(&t));
     
     print_border();
     
