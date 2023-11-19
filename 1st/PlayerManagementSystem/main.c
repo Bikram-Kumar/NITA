@@ -108,11 +108,21 @@ void retrieve_player() {
     
     dbptr = fopen("playerdb.txt", "r");
     
+    if (dbptr == NULL) {
+        printf("No records in the database. Start by adding some players first.");
+        print_border();
+        prompt_mode();
+        return;
+    }
+    
+    int count = 0;
+    
     while (fscanf(dbptr, "%d %s %s %s %d %lld %s", &id, tag, fname, lname, &age, &mobile, email) != EOF ) {
-        
+        count++;
         if ((retrieve_mode == 1) && (retrieval_id != id)) continue;
         
-        printf("Player ID: %d\n\n", id);
+        printf("Record %d\n\n", count);
+        printf("Player ID: %d\n", id);
         printf("Gamer Tag: %s\n", tag);
         printf("Name: %s %s\n", fname, lname);
         printf("Age: %d\n", age);
