@@ -23,7 +23,6 @@ void print_border();
 
 
 int main() {
-    char data[1000];
     print_border();
     printf("\tWelcome to Player Management System");
     print_border();
@@ -46,7 +45,12 @@ void prompt_mode() {
         add_player();
     } else if (mode == 2) {
         retrieve_player();
-    } 
+    } else {
+        print_border();
+        printf("\tThanks for using Player Management System");
+        print_border();
+        printf("Exited Successfully!\n\n");
+    }
 }
 
 
@@ -143,6 +147,7 @@ void retrieve_player() {
     if (!data_printed) {
         printf("No Player Found.");
     } else {
+        printf("(%d records printed)\n\n", count);
         printf("Task done successfully!");
     }
     
