@@ -147,7 +147,11 @@ void retrieve_player() {
     if (!data_printed) {
         printf("No Player Found.");
     } else {
-        printf("(%d records printed)\n\n", count);
+        if (retrieve_mode == 1) {
+            printf("(1 record printed)\n\n");
+        } else {
+            printf("(%d records printed)\n\n", count);
+        }
         printf("Task done successfully!");
     }
     
