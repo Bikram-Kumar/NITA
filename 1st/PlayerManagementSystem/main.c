@@ -79,7 +79,7 @@ void add_player() {
     
     id = rand();
     
-    fprintf(dbptr, "\n%d %s %s %s %d %lld %s", id, tag, fname, lname, age, mobile, email);
+    fprintf(dbptr, "%d %s %s %s %d %lld %s\n", id, tag, fname, lname, age, mobile, email);
     
     fclose(dbptr);
     
