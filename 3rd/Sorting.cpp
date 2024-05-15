@@ -1,10 +1,11 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 
-
-void getArr(int*,int*), printArr(int*,int*);
+void getArr(vector<int>&,int);
+void printArr(vector<int>&);
 void bubbleSort(int*,int*);
 void selectionSort(int*,int*);
 void insertionSort(int*,int*);
@@ -12,7 +13,7 @@ void mergeSort(int*,int*);
 void quickSort(int*,int*);
 void heapSort(int*,int*);
 void radixSort(int*,int*);
-void countingSort(int*,int*);
+void countingSort(vector<int>&);
 
 
 
@@ -20,16 +21,17 @@ int main(){
     int n;
     cout << "Enter length: ";
     cin >> n;
-    int arr[n];
-    
-    getArr(arr,arr+n);
-    
-    //bubbleSort(arr, arr+n);
-    
-    countingSort(arr, arr+n);
+    vector<int> arr(n);
+   
+    getArr(arr, n);
     
     
-    printArr(arr,arr+n);
+    //bubbleSort(&arr.front(), &arr.back());
+    
+    countingSort(arr);
+    
+    
+    printArr(arr);
     cout << endl;
     
     
@@ -39,16 +41,37 @@ int main(){
 
 
 
-void countingSort(int* start, int* end) {
+void countingSort(vector<int>& input) {
     
-    int n = end-start;
-    int k = n - 1;
-    int count[n];
+    // check negative 
+    for (int i : input) {
+        if (i < 0) {
+            cout << endl << "Counting Sort doesn't work with negative numbers." << endl;
+            return;
+        }
+    }
     
+    int n = input.size();
+    int k = *max_element(input.begin(), input.end());
+    vector<int> count(k+1);
+    vector<int> output(input);
     
+    for (int i = 0; i < n; i++) {
+        int j = input[i];
+        count[j] += 1;
+    }
     
+    for (int i = 1; i <= k; i++) {
+        count[i] += count[i-1];
+    }
     
-   
+    for (int i = n-1; i >= 0; i--) {
+        int j = input[i];
+        count[j] -= 1;
+        output[count[j]] = input[i];
+    }
+    
+    input = output;
 
 }
 
@@ -80,26 +103,18 @@ void bubbleSort(int* start, int* end) {
 }
 
 
-
-
-
-
-
-
-
-
-
-void getArr(int* start,int* end) {
-    cout << "Enter elements: ";
-    for (int* i = start; i < end; i++) {
-        cin >> *i;
+void getArr(vector<int>& arr, int n) {
+    cout << "Enter array: ";
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
     }
 }
 
-
-void printArr(int* start,int* end) {
+void printArr(vector<int>& arr) {
     cout << "Sorted array: ";
-    for (int* i = start; i < end; i++) {
-        cout << *i << " ";
+    for (int i : arr) {
+        cout << i << " ";
     }
 }
+
+
