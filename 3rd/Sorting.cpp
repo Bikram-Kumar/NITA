@@ -9,7 +9,7 @@ void getArr(vector<int>&,int);
 void printArr(vector<int>&);
 void bubbleSort(int*,int*);
 void selectionSort(vector<int>&);
-void insertionSort(int*,int*);
+void insertionSort(vector<int>&);
 void mergeSort(int*,int*);
 void quickSort(int*,int*);
 void heapSort(vector<int>&);
@@ -30,9 +30,9 @@ int main(){
     //bubbleSort(&arr.front(), &arr.back());
     //countingSort(arr);
     //heapSort(arr);
-    selectionSort(arr);
+    //selectionSort(arr);
     
-    
+    insertionSort(arr);
     
     printArr(arr);
     cout << endl;
@@ -41,6 +41,31 @@ int main(){
     return 0;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+void insertionSort(vector<int>& arr) {
+    
+    int i = 1, len = arr.size();
+    
+    while (i < len) {
+        int j = i;
+        while ((j > 0) && (arr[j] < arr[j-1])) {
+            swap(arr[j], arr[j-1]);
+            j--;
+        }
+        i++;
+    }
+    
+}
 
 
 
