@@ -1,4 +1,5 @@
 #include <iostream>
+#include <functional>
 #include <vector>
 
 using namespace std;
@@ -11,7 +12,7 @@ void selectionSort(int*,int*);
 void insertionSort(int*,int*);
 void mergeSort(int*,int*);
 void quickSort(int*,int*);
-void heapSort(int*,int*);
+void heapSort(vector<int>&);
 void radixSort(int*,int*);
 void countingSort(vector<int>&);
 
@@ -27,8 +28,9 @@ int main(){
     
     
     //bubbleSort(&arr.front(), &arr.back());
+    //countingSort(arr);
+    heapSort(arr);
     
-    countingSort(arr);
     
     
     printArr(arr);
@@ -41,43 +43,91 @@ int main(){
 
 
 
+
+
+
+void heapSort(vector<int>& arr) {
+    
+    function<void(vector<int>&)> heapify;
+    function<void(vector<int>&,int,int)> siftDown;
+   
+    heapify = [&heapify, &siftDown] (vector<int>& a) {
+        int n = floor(a.size()/2) - 1;
+        for (int i = n; i >= 0; i--) {
+            siftDown(a,i,a.size());
+        }
+    };
+    
+    
+    siftDown = [&siftDown] (vector<int>& a, int i, int end) {
+        int largest = i, left = (2*i)+1, right = (2*i)+2;
+        
+        if ((left < end) && (a[left] > a[largest])) largest = left;
+        
+        if ((right < end) && (a[right] > a[largest])) largest = right;
+        
+        if (largest != i) {
+            swap(a[i], a[largest]);
+            siftDown(a, largest, end);
+        }
+    
+    };
+    
+    
+    
+    // heapify the array
+    // swap first and last element so that greatest goes in last
+    // repeat with decreasing end boundary
+    
+    heapify(arr);
+    
+    int end = arr.size();
+    while (end > 1) {
+        end--;
+        swap(arr[0], arr[end]);
+        siftDown(arr,0,end);
+    }
+    
+    
+   
+}
+
+
+
+
+
+
+
+
+
 void countingSort(vector<int>& input) {
     
     // check negative 
     for (int i : input) {
         if (i < 0) {
             cout << endl << "Counting Sort doesn't work with negative numbers." << endl;
-            return;
+            exit(0);
         }
     }
     
     int n = input.size();
     int k = *max_element(input.begin(), input.end());
     vector<int> count(k+1);
-    vector<int> output(input);
     
     for (int i = 0; i < n; i++) {
-        int j = input[i];
-        count[j] += 1;
+        count[input[i]]++;
     }
     
-    for (int i = 1; i <= k; i++) {
-        count[i] += count[i-1];
+    int j = 0;
+    for (int i = 0; i < k+1; i++) {
+        while (count[i] > 0) {
+            input[j] = i;
+            count[i]--;
+            j++;
+        }
     }
-    
-    for (int i = n-1; i >= 0; i--) {
-        int j = input[i];
-        count[j] -= 1;
-        output[count[j]] = input[i];
-    }
-    
-    input = output;
-
+        
 }
-
-
-
-
 
 
 void bubbleSort(int* start, int* end) {
