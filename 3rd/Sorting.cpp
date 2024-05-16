@@ -8,7 +8,7 @@ using namespace std;
 void getArr(vector<int>&,int);
 void printArr(vector<int>&);
 void bubbleSort(int*,int*);
-void selectionSort(int*,int*);
+void selectionSort(vector<int>&);
 void insertionSort(int*,int*);
 void mergeSort(int*,int*);
 void quickSort(int*,int*);
@@ -29,7 +29,8 @@ int main(){
     
     //bubbleSort(&arr.front(), &arr.back());
     //countingSort(arr);
-    heapSort(arr);
+    //heapSort(arr);
+    selectionSort(arr);
     
     
     
@@ -43,6 +44,23 @@ int main(){
 
 
 
+void selectionSort(vector<int>& arr) {
+    int end = arr.size();
+    int max;
+    
+    while (end > 1) {
+        end--;
+        max = 0;
+        for (int i = 1; i < end; i++) {
+            if (arr[max] < arr[i]) {
+                max = i;
+            }
+        }
+        swap(arr[max], arr[end]);
+    }
+    
+}
+    
 
 
 
