@@ -7,13 +7,15 @@ using namespace std;
 
 void getArr(vector<int>&,int);
 void printArr(vector<int>&);
+void checkNegative(vector<int>&,string);
+
 void bubbleSort(int*,int*);
 void selectionSort(vector<int>&);
 void insertionSort(vector<int>&);
 void mergeSort(int*,int*);
 void quickSort(int*,int*);
 void heapSort(vector<int>&);
-void radixSort(int*,int*);
+void radixSort(vector<int>&);
 void countingSort(vector<int>&);
 
 
@@ -31,8 +33,9 @@ int main(){
     //countingSort(arr);
     //heapSort(arr);
     //selectionSort(arr);
+    //insertionSort(arr);
     
-    insertionSort(arr);
+    radixSort(arr);
     
     printArr(arr);
     cout << endl;
@@ -47,7 +50,38 @@ int main(){
 
 
 
-
+void radixSort(vector<int>& arr) {
+    
+    checkNegative(arr, "Radix");
+    
+    int max = *max_element(arr.begin(), arr.end());
+    int len = arr.size();
+    
+    int p = 1, d;
+    vector<int> radixArr[10] = {*(new vector<int>())};
+    
+    while ((max / p) > 0) {
+        for (int i = 0; i < len; i++) {
+            d = (arr[i] % (p * 10)) / p;
+            radixArr[d].push_back(arr[i]);
+        }
+        int i = 0;
+        
+        
+        for (vector<int>& v : radixArr) {
+            for (int& j : v) {
+                arr[i] = j;
+                i++;
+            }
+            v.clear();
+        }
+        
+        
+        p *= 10;
+    
+    }
+    
+}
 
 
 
@@ -145,13 +179,8 @@ void heapSort(vector<int>& arr) {
 
 void countingSort(vector<int>& input) {
     
-    // check negative 
-    for (int i : input) {
-        if (i < 0) {
-            cout << endl << "Counting Sort doesn't work with negative numbers." << endl;
-            exit(0);
-        }
-    }
+    checkNegative(input, "Counting");
+    
     
     int n = input.size();
     int k = *max_element(input.begin(), input.end());
@@ -194,6 +223,23 @@ void bubbleSort(int* start, int* end) {
     
     
 }
+
+
+
+
+
+void checkNegative(vector<int>& arr, string name) {
+    
+    for (int i : arr) {
+        if (i < 0) {
+            cout << endl << name << " Sort doesn't work with negative numbers.\n\n";
+            exit(0);
+        }
+    }
+}
+
+
+
 
 
 void getArr(vector<int>& arr, int n) {
