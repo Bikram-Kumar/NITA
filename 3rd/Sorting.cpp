@@ -12,7 +12,7 @@ void checkNegative(vector<int>&,string);
 void bubbleSort(int*,int*);
 void selectionSort(vector<int>&);
 void insertionSort(vector<int>&);
-void mergeSort(int*,int*);
+void mergeSort(vector<int>&);
 void quickSort(int*,int*);
 void heapSort(vector<int>&);
 void radixSort(vector<int>&);
@@ -34,17 +34,68 @@ int main(){
     //heapSort(arr);
     //selectionSort(arr);
     //insertionSort(arr);
+    //radixSort(arr);
     
-    radixSort(arr);
+    mergeSort(arr);
     
     printArr(arr);
-    cout << endl;
+   
     
     
     return 0;
 }
 
 
+
+
+
+
+
+
+
+void mergeSort(vector<int>& arr) {
+    
+    function<void(vector<int>&, int, int, vector<int>&)> msort;
+    function<void(vector<int>&, int, int, int, vector<int>&)> merge;
+    
+    // end is exclusive 
+    msort = [&msort, &merge] (vector<int>& v, int start, int end, vector<int>& v1) {
+        if ((end-start) <= 1) return;
+        
+        int mid = (start + end) / 2;
+        
+        // exchange v and v1 every turn so that both are updated and need for copying v1 every update is eliminated 
+        msort(v1, start, mid, v);
+        msort(v1, mid, end, v);
+        
+        merge(v, start, mid, end, v1);
+    };
+    
+    
+    merge = [&merge] (vector<int>& v, int start, int mid, int end, vector<int>& v1) {
+        
+        int j = start, k = mid;
+        
+        for (int i = start; i < end; i++) {
+            if ((j < mid) && ((k >= end) || (v1[j] <= v1[k]))) {
+                v[i] = v1[j];
+                j++;
+            } else {
+                v[i] = v1[k];
+                k++;
+            }
+        }
+        
+    };
+    
+    
+    // arr1 is used for comparison while merging as data is updated 
+    
+    vector<int> arr1(arr);
+    msort(arr, 0, arr.size(), arr1);
+    
+    
+}
 
 
 
@@ -254,6 +305,7 @@ void printArr(vector<int>& arr) {
     for (int i : arr) {
         cout << i << " ";
     }
+    cout << endl;
 }
 
 
