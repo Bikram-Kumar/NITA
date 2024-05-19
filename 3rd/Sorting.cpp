@@ -13,7 +13,8 @@ void bubbleSort(int*,int*);
 void selectionSort(vector<int>&);
 void insertionSort(vector<int>&);
 void mergeSort(vector<int>&);
-void quickSort(int*,int*);
+void quickSortLomuto(vector<int>&);
+void quickSortHoare(vector<int>&);
 void heapSort(vector<int>&);
 void radixSort(vector<int>&);
 void countingSort(vector<int>&);
@@ -35,8 +36,10 @@ int main(){
     //selectionSort(arr);
     //insertionSort(arr);
     //radixSort(arr);
+    //mergeSort(arr);
     
-    mergeSort(arr);
+    //quickSortLomuto(arr);
+    quickSortHoare(arr);
     
     printArr(arr);
    
@@ -46,6 +49,94 @@ int main(){
 }
 
 
+
+
+
+
+
+
+
+
+void quickSortLomuto(vector<int>& arr) {
+    
+    function<void(vector<int>&, int, int)> qksort;
+    
+    // end is exclusive 
+    qksort = [&qksort] (vector<int>& v, int start, int end) {
+        
+        if ((end - start) <= 1) return;
+        
+        
+        
+        // Lomuto partition scheme
+              
+        
+        int pivotPos = end - 1;
+        
+        int i = start; 
+        
+        // scan through each element from start and place the smaller values than pivot first
+        for (int j = start; j < pivotPos; j++) {
+            if (v[j] < v[pivotPos]) {
+                swap(v[j], v[i]);
+                i++;
+            }
+        }
+        // start to i-1 are less than pivot
+        swap(v[i], v[pivotPos]);
+        
+        
+        qksort(v, start, i);
+        qksort(v, i+1, end); // exclude the pivot since it's already in its final position 
+        
+    
+    };
+    
+    
+    qksort(arr, 0, arr.size());
+    
+}
+
+
+
+void quickSortHoare(vector<int>& arr) {
+    
+    function<void(vector<int>&, int, int)> qksort;
+    
+    // end is exclusive 
+    qksort = [&qksort] (vector<int>& v, int start, int end) {
+        
+        if ((end - start) <= 1) return;
+        
+        
+        // Hoare partition scheme (more efficient)
+        
+        int p = v[start]; // choose first as pivot 
+        int i = start-1;
+        int j = end;
+        
+        while (true) {
+            
+            do { i++; } while (v[i] < p);
+            
+            do { j--;} while (v[j] > p);
+            
+            if (i >= j) break;
+            
+            swap(v[i],v[j]);
+            
+        }
+        
+        qksort(v, start, j+1); // include pivot for sorting too
+        qksort(v, j+1, end);
+        
+    
+    };
+    
+    
+    qksort(arr, 0, arr.size());
+    
+}
 
 
 
