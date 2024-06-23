@@ -1,0 +1,3 @@
+[submodule "3rd/DataStructures/lib/DStruct"]
+	path = 3rd/DataStructures/lib/DStruct
+	url = git@github.com:Bikram-Kumar/DStruct.git
