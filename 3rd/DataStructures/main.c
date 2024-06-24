@@ -3,10 +3,23 @@
 
 
 
-void print_arr(char* mess, Heap** arr, Heap** end) {
+void print_num(char* mess, int num) {
+    printf("%s: %d\n", mess, num);
+}
+
+void print_arr(char* mess, int* arr, int* end) {
     printf("%s", mess);
     while (arr < end) {
-        printf("%d ", (*arr)->get_val(*arr));
+        printf("%d ", (*arr));
+        arr++;
+    }
+    printf("\n");
+}
+
+void print_garr(char* mess, char** arr, char** end) {
+    printf("%s", mess);
+    while (arr < end) {
+        printf("%s ", (*arr));
         arr++;
     }
     printf("\n");
@@ -18,37 +31,33 @@ void print_arr(char* mess, Heap** arr, Heap** end) {
 
 int main() {
 
-    Heap* t = create_heap(4);
+    char name[] = "Bikram";
+    DArray* arr = create_empty_darray();
+    GArray* garr = create_empty_garray();
     
-    t = t->push(t, create_heap(1));
-    t = t->push(t, create_heap(8));
-    t = t->push(t, create_heap(0));
-    t = t->push(t, create_heap(156));
-    t = t->push(t, create_heap(-3));
-    t = t->push(t, create_heap(-7));
-    t = t->push(t, create_heap(4));
-    t = t->push(t, create_heap(-39));
-    t = t->push(t, create_heap(75));
+    for (int i = 0; i < 168; i++) {
+        arr->append(arr, 6);
+        garr->append(garr, name);
+        
+    }
     
-     
+    print_num("size", arr->size);
+    print_num("size", garr->size);
+    print_num("cap", arr->capacity);
+    print_num("cap", garr->capacity);
     
-    Heap** arr = malloc(sizeof(Heap*) * t->get_size(t));
+    arr->shrink_to_fit(arr);
+    garr->shrink_to_fit(garr);
+        
+    print_num("size", arr->size);
+    print_num("size", garr->size);
+    print_num("cap", arr->capacity);
+    print_num("cap", garr->capacity);
     
-    t->traverse_bfs(t, arr);
-    print_arr("bfs: ", arr, arr + t->get_size(t));
-    
-    t->traverse_pre(t, arr);
-    print_arr("pre: ", arr, arr + t->get_size(t));
-    
-    t->traverse_in(t, arr);
-    print_arr("in: ", arr, arr + t->get_size(t));
-    
-    t->traverse_post(t, arr);
-    print_arr("post: ", arr, arr + t->get_size(t));
-    
-    t->destroy(t);
-    free(arr);
-    
+    print_arr("DArray: ", arr->arr, arr->arr+arr->size);
+    print_garr("GArray: ", garr->arr, garr->arr+garr->size);
+    arr->destroy(arr);
+    garr->destroy(garr);
     
     return 0;
 }
