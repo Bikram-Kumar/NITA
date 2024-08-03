@@ -24,8 +24,8 @@ int main() {
     // p1();
     // p2();
     // p3();
-    p4();
-    // p5();
+    // p4();
+    p5();
 
     return 0;
 }
@@ -34,7 +34,7 @@ int main() {
 // Reverse an array, accepting the elements from the user keyboard
 void p1() {
     int arr[512];
-    printf("Enter numbers from 0 to 1000 as array elements:\n");
+    printf("Enter numbers from 0 to 1000 (out of range to terminate input):\n");
 
     for (int i = 0; i < 512; i++) {
         int* ptr = arr + i;
@@ -103,7 +103,7 @@ void p5() {
 
     int arr[] = {7, 9, 56, 87, 0, 54};
 
-    size_t arr_len = sizeof(arr) / sizeof(int);
+    int arr_len = sizeof(arr) / sizeof(int);
 
     print_arr("Initial Array: ", arr, arr + arr_len);
 
@@ -183,8 +183,7 @@ void find_duplicates(int *start, int n) {
 
         } else if (arr_contains(start, start+i, num)) {
             printf("Found duplicate %d at index %d\n", num, i);
-            dups[dups_i] = num;
-            dups_i++;
+            dups[dups_i++] = num;
         }
     }
 

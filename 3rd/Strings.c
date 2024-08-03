@@ -41,7 +41,7 @@ void p1() {
 // Input sentences of length n. Count the number of vowels and consonants, number of sentences,
 // number of unique words, number of repeating words
 void p2() {
-    int n;
+    int n, num_words, num_dup;
     printf("Enter n: ");
     scanf("%d", &n);
     char sentences[n+1];
@@ -59,7 +59,6 @@ void p2() {
     printf("Number of consonants: %d\n", get_num_consonants(sentences));
     printf("Number of sentences: %d\n", get_num_sentences(sentences));
 
-    int num_words, num_dup;
     get_num_words_dup(sentences, &num_words, &num_dup);
 
     printf("Number of unique words: %d\n", num_words - num_dup);
@@ -126,8 +125,6 @@ int get_num_sentences(char *str)
             count++;
         }
     }
-
-    if ((count == 0) && (len > 0) && (str[0] != '\n')) return 1;
     
     return count;
 }
@@ -141,7 +138,6 @@ void get_num_words_dup(char* str, int* num_words, int* num_dup)
     words[*num_words] = strtok(str, " ,.?!");
 
     while (words[*num_words] != NULL) {
-        puts(words[*num_words]);
         (*num_words)++;
         words[*num_words] = strtok(NULL, " ,.?!");
     }
