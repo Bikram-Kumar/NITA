@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include <vadefs.h>
+
+
+#ifdef __INTELLISENSE__
+  #pragma diag_suppress 28
+#endif
+
+
 
 void reverse_array (int* start, int n);
 void merge_arrays (int* arr1, int* arr2, int* arr_merged, int n);
