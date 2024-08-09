@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 
 
 
@@ -22,11 +23,11 @@ void p1(), p2(), p3(), p4(), p5();
 int main () {
 
 
-    // p1();
+    p1();
     // p2();
     // p3();
     // p4();
-    p5();
+    // p5();
 
 
     return 0;
@@ -164,22 +165,23 @@ void print_arr(char* message, int* start, int* end){
 
 
 void bubble_sort(int* start, int* end) {
-    int n = end - start;
-    int k = n, swapped, temp;
+
+    int temp;
+    bool swapped;
     do {
-        swapped = 0;
-        for (int i = 0; i < k-1; i++) {
-            if (*(start + i) > *(start+i+1)) {
-                temp = *(start+i+1);
-                *(start+i+1) = *(start+i);
-                *(start+i) = temp;
+        swapped = false;
+        for (int* i = start; i < end-1; i++) {
+
+            if (*i > *(i+1)) {
+                temp = *(i+1);
+                *(i+1) = *i;
+                *i = temp;
                
-                swapped = 1;
+                swapped = true;
             }
         }
-        k -= 1;
+        end--;
     } while (swapped);
-    
     
 
 }
