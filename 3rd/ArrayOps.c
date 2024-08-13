@@ -25,7 +25,7 @@ int main() {
 
 
     while (true) {
-        printf("Choose operation:\n1. Insert\n2. Delete\n3. Display\n4. Modify\n5. Restart\n(*) Exit\n: ");
+        printf("Choose operation:\n1. Insert\n2. Delete\n3. Display\n4. Modify\n(*) Exit\n: ");
         scanf("%d", &opt);
         switch (opt) {
             case 1:
@@ -40,9 +40,6 @@ int main() {
             case 4:
                 handle_modify(arr, arr+n);
                 break;
-            case 5:
-                main(); 
-                return 0;
             default:
                 return 0;
         }
@@ -110,7 +107,7 @@ void handle_modify(int *arr, int *n) {
         printf("No element at given index!\n");
         return;
     }
-    
+
     printf("Enter new value: ");
     scanf("%d", &num);
 

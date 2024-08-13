@@ -124,7 +124,7 @@ void p5() {
     printf("Enter two nums: ");
     scanf("%f %f", &a, &b);
     while (true) {
-        printf("Choose operation:\n1. Add\n2. Subtract\n3. Multiply\n4. Divide\n5. Restart\n(*) Exit\n: ");
+        printf("Choose operation:\n1. Add\n2. Subtract\n3. Multiply\n4. Divide\n(*) Exit\n: ");
         scanf("%d", &opt);
         switch (opt) {
             case 1:
@@ -139,9 +139,6 @@ void p5() {
             case 4:
                 print_div(&a, &b);
                 break;
-            case 5:
-                p5(); 
-                return;
             default:
                 return;
         }
