@@ -14,7 +14,9 @@
 void scan_arr(int* start, int* end);
 void print_arr(int* start, int* end);
 void reverse_str(char *str);
+void print_arr_with_address(int* arr, int n);
 bool isPrime(int n);
+void scan_nums(float* a, float* b);
 void print_sum (float* a, float* b);
 void print_dif (float* a, float* b);
 void print_mul (float* a, float* b);
@@ -29,8 +31,8 @@ int main () {
     // p1();
     // p2();
     // p3();
-    // p4();
-    p5();
+    p4();
+    // p5();
 
 
     return 0;
@@ -52,7 +54,7 @@ void p1() {
 
 
     for (int i = 0; i < n; i++) {
-        printf("Array %d: ", i);
+        printf("Array %d (%p to %p): ", i, arr[i], arr[i]+m);
         print_arr(arr[i], arr[i]+m);
     }
 
@@ -63,7 +65,7 @@ void p1() {
 }
 
 
-// Using pointers, accept a string array until the user terminates the input intentionally (without pressing enter)
+// Using pointers, accept a string until the user terminates the input intentionally (without pressing enter)
 void p2() {
     char str[512];
     printf("Enter a string (enter ; to terminate): ");
@@ -71,7 +73,6 @@ void p2() {
         scanf("%c", str+i);
 
         if (*(str+i) == ';') {
-            printf("\n");
             *(str+i) = '\0';
             break;
         }
@@ -103,6 +104,9 @@ void p4() {
 
     printf("Enter array (%d): ", n);
     scan_arr(arr, arr+n);
+
+    print_arr_with_address(arr, n);
+
     for (int i = 0; i < n; i++) {
         if (isPrime(arr[i])) {
             prime_flag = true;
@@ -121,10 +125,9 @@ void p4() {
 void p5() {
     float a, b;
     int opt;
-    printf("Enter two nums: ");
-    scanf("%f %f", &a, &b);
+    scan_nums(&a, &b);
     while (true) {
-        printf("Choose operation:\n1. Add\n2. Subtract\n3. Multiply\n4. Divide\n(*) Exit\n: ");
+        printf("Choose operation:\n1. Add\n2. Subtract\n3. Multiply\n4. Divide\n5. Change nums\n(*) Exit\n: ");
         scanf("%d", &opt);
         switch (opt) {
             case 1:
@@ -138,6 +141,9 @@ void p5() {
                 break;
             case 4:
                 print_div(&a, &b);
+                break;
+            case 5:
+                scan_nums(&a, &b);
                 break;
             default:
                 return;
@@ -177,6 +183,12 @@ void reverse_str(char *str) {
     }
 }
 
+void print_arr_with_address(int* arr, int n) {
+    for (int i = 0; i < n; i++) {
+        printf("Element %d = %d, Address = %p\n", i, *(arr+i), arr+i);
+    }
+}
+
 bool isPrime(int n) {
     if (n == 2) return true;
     if ((n < 2) || (n % 2 == 0)) return false;
@@ -186,6 +198,13 @@ bool isPrime(int n) {
         if (isPrime(i) && (n % i == 0)) return false;
     }
     return true;
+}
+
+
+
+void scan_nums(float* a, float* b) {
+    printf("Enter two nums: ");
+    scanf("%f %f", a, b);
 }
 
 void print_sum (float* a, float* b) {
