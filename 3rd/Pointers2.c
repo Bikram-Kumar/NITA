@@ -156,9 +156,9 @@ void p5() {
 
 
 void scan_arr(int* start, int* end){
-    while (start < end) {
-        scanf("%d", start);
-        start++;
+    if (start < end) {
+        scanf("%d", start++);
+        scan_arr(start, end);
     }
 }
 
