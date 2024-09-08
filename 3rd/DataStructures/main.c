@@ -16,6 +16,15 @@ void print_arr(char* mess, int* arr, int* end) {
     printf("\n");
 }
 
+void print_ll(char* mess, DLinkedList* ll) {
+    printf("%s", mess);
+    while (ll != NULL) {
+        printf("%d ", (ll->val));
+        ll = ll->next;
+    }
+    printf("\n");
+}
+
 void print_garr(char* mess, char** arr, char** end) {
     printf("%s", mess);
     while (arr < end) {
@@ -30,34 +39,13 @@ void print_garr(char* mess, char** arr, char** end) {
 
 
 int main() {
+    DLinkedList* ll = create_dlinkedlist(0);
+    ll->push_back(ll, create_dlinkedlist(1));
+    ll = ll->push_front(ll, create_dlinkedlist(5));
+    ll->push_back(ll, create_dlinkedlist(15));
+    ll = ll->push_front(ll, create_dlinkedlist(8));
 
-    char name[] = "Bikram";
-    DArray* arr = create_empty_darray();
-    GArray* garr = create_empty_garray();
-    
-    for (int i = 0; i < 168; i++) {
-        arr->append(arr, 6);
-        garr->append(garr, name);
-        
-    }
-    
-    print_num("size", arr->size);
-    print_num("size", garr->size);
-    print_num("cap", arr->capacity);
-    print_num("cap", garr->capacity);
-    
-    arr->shrink_to_fit(arr);
-    garr->shrink_to_fit(garr);
-        
-    print_num("size", arr->size);
-    print_num("size", garr->size);
-    print_num("cap", arr->capacity);
-    print_num("cap", garr->capacity);
-    
-    print_arr("DArray: ", arr->arr, arr->arr+arr->size);
-    print_garr("GArray: ", garr->arr, garr->arr+garr->size);
-    arr->destroy(arr);
-    garr->destroy(garr);
-    
+    print_ll("hi: ", ll);
+   
     return 0;
 }
