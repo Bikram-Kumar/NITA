@@ -232,7 +232,10 @@ void handle_modify_detail(int* reg_no, float* cgpa, int* semester, int n) {
     scanf("%d", &query_reg);
 
     for (int i = 0; i < n; i++) {
-        if (reg_no[i] == query_reg) index = i;
+        if (reg_no[i] == query_reg) {
+            index = i;
+            break;
+        }
     }
     if (index == -1) {
         printf("Entered Reg_No not found!\n");
