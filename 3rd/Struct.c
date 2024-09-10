@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 
 
@@ -47,11 +48,11 @@ void p1(){
 void p2(){
     struct Person person;
     printf("Enter name: ");
-    scanf("%s", person.name);
+    scanf(" %[^\n]", person.name);
     printf("Enter age: ");
     scanf("%d", &person.age);
     printf("Enter address: ");
-    scanf("%s", person.address);
+    scanf(" %[^\n]", person.address);
 
     printf("Name: %s\nAge: %d\nAddress: %s\n", person.name, person.age, person.address);
 }
@@ -60,7 +61,7 @@ void p2(){
 void p3(){
     struct Computer computer;
     printf("Enter Brand: ");
-    scanf("%s", computer.brand);
+    scanf(" %s", computer.brand);
     printf("Enter RAM (in GB): ");
     scanf("%d", &computer.ram);
     printf("Enter storage (in GB): ");
@@ -71,3 +72,5 @@ void p3(){
     printf("Brand: %s\nRAM: %d\nStorage: %d\nOS: %s\n", computer.brand, computer.ram, computer.storage, computer.os);
 
 }
+
+
