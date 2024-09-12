@@ -33,12 +33,13 @@ void p1() {
 
 
 void p2(){
-    char c1, c2;
+    int i;
+    char c;
 
-    scanf("%c", &c1);
-    scanf("%c", &c2);
+    scanf("%d", &i);
+    scanf("%c", &c);
 
-    printf("%d\n", c1-c2);
+    printf("%d\n", i-c);
 
 }
 
