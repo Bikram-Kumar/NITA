@@ -7,6 +7,7 @@ uint32_t rand_state;
 
 void seed_random(int seed);
 double random();
+void show();
 
 int main () {
     int l, u, n;
@@ -17,24 +18,30 @@ int main () {
     printf("Enter number of random numbers to generate: ");
     scanf("%d", &n);
 
+    // seed the generator with current time so that it's different across multiple runs
     seed_random(time(NULL));
-    // int start = rand_state, p = 0;
-    // do {
-    //     random();
-    //     p++;
-    // printf("%d\n", p);
-    // } while (start != rand_state);
+
 
     for (int i = 0; i < n; i++) {
-        // printf("%lf ", random() );
+        
+        // printf("%lf ", random());  // uncomment to see actual random number
+
         printf("%d ", (int)(l + (random() * (u-l))));
     }
+
     printf("\n");
+
+    show();
+
     return 0;
 }
 
+
+// generates random bits and outputs them to `stdout` as white and black pixels
+// (zoom out in console for better visualization)
 void show () {
-    int m = 2000, n = 168;
+
+    int m = 50, n = 168; // rows and columns to fill with random pixels
     int k = 0;
 
     for (int i = 0; i < m; i++) {
@@ -49,15 +56,21 @@ void show () {
         printf("\n");
     }
 
-    printf("%lf\n", (double)k/(m*n));
+    printf("%lf\n", (double)k/(m*n));  // shows ratio of total 1's generated
 }
 
+
+
+// initializes the state for random number generation
 void seed_random(int seed){
     rand_state = seed;
+    // first two states are close for close seeds, so discard them
     random();
     random();
 }
 
+
+// generates a random `double` between 0 and 1
 double random(){
 
     rand_state ^= rand_state >> 7;

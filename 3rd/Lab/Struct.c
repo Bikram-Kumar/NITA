@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h>
 
 
 
@@ -29,13 +28,14 @@ struct Computer {
 
 
 int main () {
-    p1();
+    // p1();
     p2();
-    p3();
+    // p3();
 
     return 0;
 }
 
+// Implement a struct to find the summation of twp variables of its own
 void p1(){
     struct Nums nums;
     printf("Enter two numbers: ");
@@ -45,6 +45,8 @@ void p1(){
 
 }
 
+
+// Implement a struct Person to accept details like age, name and address, and display it accordingly
 void p2(){
     struct Person person;
     printf("Enter name: ");
@@ -58,6 +60,7 @@ void p2(){
 }
 
 
+// Implement a struct of your own choice. Accept data about it
 void p3(){
     struct Computer computer;
     printf("Enter Brand: ");
