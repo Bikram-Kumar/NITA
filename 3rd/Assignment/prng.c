@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include <limits.h>
 #include <time.h>
 #include <stdint.h>
+
 
 uint32_t rand_state;
 
@@ -31,7 +31,7 @@ int main () {
 
     printf("\n");
 
-    show();
+    // show();    // uncomment to show the random numbers as white and black pixels
 
     return 0;
 }
