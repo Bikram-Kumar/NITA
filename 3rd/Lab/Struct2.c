@@ -12,8 +12,8 @@ void p1(), p2(), p3();
 int main (){
 
     p1();
-    p2();
-    p3();
+    // p2();
+    // p3();
     return 0;
 }
 
@@ -65,7 +65,6 @@ void p2(){
 
 
 struct Employee {
-    int id;
     char name[32];
     int age;
     char role[32];
@@ -81,8 +80,6 @@ void p3(){
 
     for (int i = 0; i < n; i++) {
         printf("Employee %d details\n", i);
-        printf("Enter ID: ");
-        scanf("%d", &employees[i].id);
         printf("Enter name: ");
         scanf(" %[^\n]", employees[i].name);
         printf("Enter age: ");
@@ -92,9 +89,9 @@ void p3(){
 
     }
 
+    printf("Employee details:\nS.No.\tName\t\tAge\tRole\n");
     for (int i = 0; i < n; i++) {
-        printf("Employee %d details\n", i);
-        printf("ID: %d\nName: %s\nAge: %d\nRole: %s\n", employees[i].id, employees[i].name, employees[i].age, employees[i].role);
+        printf("%d\t%s\t%d\t%s\n", i, employees[i].name, employees[i].age, employees[i].role);
     }
 
 
