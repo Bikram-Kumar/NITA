@@ -36,9 +36,13 @@ void bubble_sort(int* start, int* end) {
 void insertion_sort(int* arr, int n){
     
     for (int i = 1; i < n; i++) {
-        for (int j = i; (j > 0) && (arr[j] < arr[j-1]); j--) {
-            swap(arr+j, arr+j-1);
+        int temp = arr[i];
+        int j = i;
+        while ((j > 0) && (arr[j-1] > temp)) {
+            arr[j] = arr[j-1];
+            j--;
         } 
+        arr[j] = temp;
     }
 }
 
@@ -53,7 +57,7 @@ void shell_sort(int* arr, int n){
             int temp = arr[i];
             int j = i;
             while ((j >= gaps[g]) && (arr[j - gaps[g]] > temp)) {
-                swap(arr+j, arr+j-1);
+                arr[j] = arr[j-gaps[g]];
                 j -= gaps[g];
             } 
             arr[j] = temp;
@@ -63,14 +67,29 @@ void shell_sort(int* arr, int n){
     }
 
 }
+void print_arr(char* message, int* start, int* end){
+    printf("%s", message);
+
+    while (start < end) {
+        printf("%d ", *start);
+        start++;
+    }
+
+    printf("\n");
+}
 
 
+double diffclock(clock_t t2, clock_t t1) {
+    return (double)(t2 - t1) / CLOCKS_PER_SEC;
+}
 
 
 
 int main () {
 
     int arrB[N], arrI[N], arrS[N];
+
+    srand(time(NULL));
     for (int i = 0; i < N; i++){
         arrB[i] = rand();
         arrI[i] = arrB[i];
@@ -78,17 +97,21 @@ int main () {
         // printf("%d\n", arrB[i]);
     }
 
-    time_t t1 = time(NULL);
+    clock_t t1 = clock();
     bubble_sort(arrB, arrB+N);
-    time_t t2 = time(NULL);
+    clock_t t2 = clock();
     insertion_sort(arrI, N);
-    time_t t3 = time(NULL);
+    clock_t t3 = clock();
     shell_sort(arrS, N);
-    time_t t4 = time(NULL);
+    clock_t t4 = clock();
+
+    // print_arr("Bubble: ", arrB, arrB+N);
+    // print_arr("Insertion: ", arrI, arrI+N);
+    // print_arr("Shell: ", arrS, arrS+N);
 
     printf(
-        "Time taken by Bubble, Insertion and Shell sort algorithms are %lf, %lf and %lf, respectively.\n",
-        difftime(t2, t1), difftime(t3, t2), difftime(t4, t3)
+        "Time taken by Bubble, Insertion and Shell sort algorithms are %lf s, %lf s and %lf s, respectively.\n",
+        diffclock(t2, t1), diffclock(t3, t2), diffclock(t4, t3)
     );
 
     
