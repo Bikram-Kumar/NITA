@@ -23,7 +23,7 @@ void destroy_list(ListNode* head) {
 
 
 
-void linkedlist_display(ListNode* head) {
+void list_display(ListNode* head) {
     printf("Linked List: ");
     while (head) {
         printf("%d ", head->val);
@@ -140,7 +140,7 @@ void list_delete(ListNode** head, int pos) {
 
 void handle_delete(ListNode** head) {
     if (*head == NULL) {
-        printf("List is empty!");
+        printf("List is empty!\n");
         return;
     }
 
@@ -173,7 +173,7 @@ void handle_delete(ListNode** head) {
 
 void handle_modify(ListNode* head) {
     if (head == NULL) {
-        printf("List is empty!");
+        printf("List is empty!\n");
         return;
     }
 
@@ -200,7 +200,7 @@ void handle_modify(ListNode* head) {
 }
 
 
-ListNode* linkedlist_reverse(ListNode* head) {
+ListNode* list_reverse(ListNode* head) {
     if (!head || !head->next) return head;
 
     ListNode* node = head;
@@ -245,10 +245,10 @@ int main () {
                 printf("%d\n", get_length(head));
                 break;
             case 5:
-                head = linkedlist_reverse(head);
+                head = list_reverse(head);
                 break;
             case 6:
-                linkedlist_display(head);
+                list_display(head);
                 break;
         }
 

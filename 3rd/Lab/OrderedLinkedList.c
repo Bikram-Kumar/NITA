@@ -116,5 +116,7 @@ int main () {
 
     }
 
+    destroy_list(head);
+
     return 0;
 }
