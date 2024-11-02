@@ -4,11 +4,6 @@
 
 
 
-#ifdef __INTELLISENSE__
-  #pragma diag_suppress 28
-#endif
-
-
 
 int linear_search (int* arr, int n, int val, int* count) {
     for (int i = 0; i < n; i++) {
