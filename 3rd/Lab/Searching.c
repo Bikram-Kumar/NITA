@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 
 
@@ -44,39 +45,43 @@ void scan_arr(int* start, int* end){
 
 }
 
+// return diff in millisec
+double diff_timespec(struct timespec* ts1, struct timespec* ts2) {
+    return ((difftime(ts1->tv_sec, ts2->tv_sec) * 1e-3) + ((ts1->tv_nsec - ts2->tv_nsec) * 1e-6));
+}
+
 
 
 int main () {
     int n, val, lcount = 0, bcount = 0;
     printf("Enter n: ");
     scanf("%d", &n);
-    int arr[n];
-    printf("Enter array: ");
+    int* arr = malloc(sizeof(int) * n);
+    printf("Enter array (sorted ascending): ");
     scan_arr(arr, arr+n);
     printf("Enter value to find: ");
     scanf("%d", &val);
 
-    clock_t t1 = clock();
+    struct timespec ts1, ts2, ts3;
+
+    timespec_get(&ts1, TIME_UTC); // it takes quite long for first call, so get time twice consecutively
+    timespec_get(&ts1, TIME_UTC);
     int li = linear_search(arr, n, val, &lcount);
-    clock_t t2 = clock();
+    timespec_get(&ts2, TIME_UTC);
     int bi = binary_search(arr, n, val, &bcount);
-    clock_t t3 = clock();
+    timespec_get(&ts3, TIME_UTC);
 
-    if (li == -1) {
-        printf("Value not found by linear search.\n");
-    } else {
-        printf("Value found at index %d in %d iterations by linear search.\n", li, lcount);
-    }
-    if (bi == -1) {
-        printf("Value not found by binary search.\n");
-    } else {
-        printf("Value found at index %d in %d iterations by binary search.\n", bi, bcount);
-    }
+    if (li == -1) printf("Value not found by linear search.\n");
+    else printf("Value found at index %d by linear search.\n", li);
+    
+    if (bi == -1) printf("Value not found by binary search.\n");
+    else printf("Value found at index %d by binary search.\n", bi);
+    
 
-    printf("Time taken by linear search = %.12lf s\n", (t2-t1) / CLOCKS_PER_SEC);
-    printf("Time taken by binary search = %.12lf s\n", (t3-t2) / CLOCKS_PER_SEC);
+    printf("Linear search took %d iterations and %lf ms\n", lcount, diff_timespec(&ts2, &ts1));
+    printf("Binary search took %d iterations and %lf ms\n", bcount, diff_timespec(&ts3, &ts2));
 
-
+    free(arr);
     
     return 0;
 }
