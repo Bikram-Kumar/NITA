@@ -66,6 +66,24 @@ void shell_sort(int* arr, int n){
     }
 
 }
+
+
+
+
+void selection_sort(int* arr, int n){
+    int max;
+    while (n--) {
+        max = 0;
+        for (int i = 1; i <= n; i++) {
+            if (arr[i] > arr[max]) max = i;
+        }
+        swap(arr+n, arr+max);
+    }
+}
+
+
+
+
 void print_arr(char* message, int* start, int* end){
     printf("%s", message);
 
@@ -86,31 +104,39 @@ double diffclock(clock_t t2, clock_t t1) {
 
 int main () {
 
-    int arrB[N], arrI[N], arrS[N];
+    int arrBubble[N], arrInsert[N], arrShell[N], arrSelect[N];
 
     srand(time(NULL));
     for (int i = 0; i < N; i++){
-        arrB[i] = rand();
-        arrI[i] = arrB[i];
-        arrS[i] = arrB[i];
-        // printf("%d\n", arrB[i]);
+        arrBubble[i] = rand();
+        arrInsert[i] = arrBubble[i];
+        arrShell[i] = arrBubble[i];
+        arrSelect[i] = arrBubble[i];
+        // printf("%d\n", arrBubble[i]);
     }
 
     clock_t t1 = clock();
-    bubble_sort(arrB, arrB+N);
+    bubble_sort(arrBubble, arrBubble+N);
     clock_t t2 = clock();
-    insertion_sort(arrI, N);
+    insertion_sort(arrInsert, N);
     clock_t t3 = clock();
-    shell_sort(arrS, N);
+    shell_sort(arrShell, N);
     clock_t t4 = clock();
+    selection_sort(arrSelect, N);
+    clock_t t5 = clock();
 
-    // print_arr("Bubble: ", arrB, arrB+N);
-    // print_arr("Insertion: ", arrI, arrI+N);
-    // print_arr("Shell: ", arrS, arrS+N);
+    // print_arr("Bubble: ", arrBubble, arrBubble+N);
+    // print_arr("Insertion: ", arrInsert, arrInsert+N);
+    // print_arr("Shell: ", arrShell, arrShell+N);
+    // print_arr("Selection: ", arrSelect, arrSelect+N);
 
     printf(
         "Time taken by Bubble, Insertion and Shell sort algorithms are %lf s, %lf s and %lf s, respectively.\n",
         diffclock(t2, t1), diffclock(t3, t2), diffclock(t4, t3)
+    );
+    printf(
+        "Time taken by Selection, -- and -- sort algorithms are %lf s, %lf s and %lf s, respectively.\n",
+        diffclock(t5, t4), diffclock(t3, t2), diffclock(t4, t3)
     );
 
     
