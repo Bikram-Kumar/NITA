@@ -6,8 +6,8 @@
 #include <chrono>
 #include <iomanip>
 
-#define NUMS_COUNT 1000
-
+#define NUMS_COUNT 100000
+#define PRINT_SORTED false
 
 using namespace std;
 
@@ -17,8 +17,8 @@ void sort_and_report(string filename, string label);
 void bubbleSort(int* arr, int len);
 void insertionSort(int* arr, int len);
 void selectionSort(int* arr, int len);
-void mergeSort(int* arr, int len);
 void quickSort(int* arr, int len);
+void mergeSort(int* arr, int len);
 
 
 // pass 'g' to generate data first then execute with 'e'
@@ -69,8 +69,8 @@ void sort_and_report(string filename, string label) {
         make_pair(insertionSort, "Insertion Sort"),
         make_pair(bubbleSort, "Bubble Sort"),
         make_pair(selectionSort, "Selection Sort"),
-        make_pair(quickSort, "Quick Sort"),
         make_pair(mergeSort, "Merge Sort"),
+        make_pair(quickSort, "Quick Sort"),
     };
 
     cout << label << ":\n";
@@ -82,8 +82,15 @@ void sort_and_report(string filename, string label) {
         auto t1 = chrono::high_resolution_clock::now();
         algo.first(nums_dup, NUMS_COUNT);
         auto t2 = chrono::high_resolution_clock::now();
+
         const chrono::duration<float> diff = t2-t1;
         cout << "\t" << algo.second << " took " << fixed << diff.count() * 1000 << " ms\n";
+        if (PRINT_SORTED) {
+            for (int i = 0; i < 20; i++) {
+                cout << nums_dup[i] << " ";
+            }
+            cout << endl;
+        }
     }
     cout << endl;
 
@@ -139,10 +146,9 @@ void selectionSort(int *arr, int len) {
     int end = len;
     int max;
     
-    while (end > 1) {
-        end--;
+    while (end--) {
         max = 0;
-        for (int i = 1; i < end; i++) {
+        for (int i = 1; i <= end; i++) {
             if (arr[max] < arr[i]) {
                 max = i;
             }
@@ -151,8 +157,93 @@ void selectionSort(int *arr, int len) {
     }
 }
 
-void mergeSort(int *arr, int len){
+
+
+
+void quickSort(int* arr, int len) {
+    
+    function<void(int*, int, int)> qksort;
+    
+    // end is exclusive 
+    qksort = [&qksort] (int* v, int start, int end) {
+        
+        if ((end - start) <= 1) return;
+        
+        
+        // Hoare partition scheme (more efficient)
+        
+        int p = v[start + ((end-start-1) / 2)]; // choose middle as pivot 
+        int i = start-1;
+        int j = end;
+        
+        while (true) {
+            
+            do { i++; } while (v[i] < p);
+            
+            do { j--;} while (v[j] > p);
+            
+            if (i >= j) break;
+            
+            swap(v[i],v[j]);
+            
+        }
+        
+        qksort(v, start, j+1); // include pivot for sorting too
+        qksort(v, j+1, end);
+        
+    
+    };
+    
+    
+    qksort(arr, 0, len);
+    
 }
 
-void quickSort(int *arr, int len){
+
+
+
+
+void mergeSort(int* arr, int len) {
+    
+    function<void(int*, int, int, int*)> msort;
+    function<void(int*, int, int, int, int*)> merge;
+    
+    // end is exclusive 
+    msort = [&msort, &merge] (int* v, int start, int end, int* v1) {
+        if ((end-start) <= 1) return;
+        
+        int mid = (start + end) / 2;
+        
+        // exchange v and v1 every turn so that both are updated and need for copying v1 every update is eliminated 
+        msort(v1, start, mid, v);
+        msort(v1, mid, end, v);
+        
+        merge(v, start, mid, end, v1);
+    };
+    
+    
+    merge = [&merge] (int* v, int start, int mid, int end, int* v1) {
+        
+        int j = start, k = mid;
+        
+        for (int i = start; i < end; i++) {
+            if ((j < mid) && ((k >= end) || (v1[j] <= v1[k]))) {
+                v[i] = v1[j];
+                j++;
+            } else {
+                v[i] = v1[k];
+                k++;
+            }
+        }
+        
+    };
+    
+    
+    // arr1 is used for comparison while merging as data is updated 
+    
+    int* arr1 = new int[len];
+    copy(arr, arr+len, arr1);
+    msort(arr, 0, len, arr1);
+    delete arr1;
+    
 }

@@ -33,13 +33,13 @@ int main(){
     //bubbleSort(&arr.front(), &arr.back());
     //countingSort(arr);
     //heapSort(arr);
-    //selectionSort(arr);
-    //insertionSort(arr);
+    selectionSort(arr);
+    // insertionSort(arr);
     //radixSort(arr);
     //mergeSort(arr);
     
     //quickSortLomuto(arr);
-    quickSortHoare(arr);
+    // quickSortHoare(arr);
     
     printArr(arr);
    
@@ -249,10 +249,9 @@ void selectionSort(vector<int>& arr) {
     int end = arr.size();
     int max;
     
-    while (end > 1) {
-        end--;
+    while (end--) {
         max = 0;
-        for (int i = 1; i < end; i++) {
+        for (int i = 1; i <= end; i++) {
             if (arr[max] < arr[i]) {
                 max = i;
             }
@@ -271,7 +270,7 @@ void heapSort(vector<int>& arr) {
     function<void(vector<int>&,int,int)> siftDown;
    
     heapify = [&heapify, &siftDown] (vector<int>& a) {
-        int n = floor(a.size()/2) - 1;
+        int n = a.size()/2 - 1;
         for (int i = n; i >= 0; i--) {
             siftDown(a,i,a.size());
         }
