@@ -1,5 +1,6 @@
 #include <iostream>
-#include <math.h>
+#include <cmath>
+#include <string>
 using namespace std;
 
 
@@ -100,20 +101,18 @@ void p6 () {
 
 // armstrong num
 void p7 () {
-    int n;
+    string s;
     cout << "Enter num: ";
-    cin >> n;
-    int k = n;
+    cin >> s;
+    int n = stol(s);
     int sum = 0;
-    while (k != 0) {
-        int r = k % 10;
-        sum += r * r * r;
-        k /= 10;
+    for (char& c : s) {
+        sum += pow(c - '0', s.size());
     }
+    
     if (n == sum) cout << n << " is an Armstrong Number" << endl;
     else cout << n << " is not an Armstrong Number" << endl;
     
-
 }
 
 
