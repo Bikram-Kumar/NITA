@@ -122,6 +122,7 @@ void p8 () {
     char c;
     cout << "Enter letter: ";
     cin >> c;
+    c = tolower(c);
     switch (c) {
         case 'a':
         case 'e':

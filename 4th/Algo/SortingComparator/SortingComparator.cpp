@@ -153,7 +153,7 @@ void selectionSort(int *arr, int len) {
                 max = i;
             }
         }
-        swap(arr[max], arr[end]);
+        if(max != end)swap(arr[max], arr[end]);
     }
 }
 
