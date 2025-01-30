@@ -307,7 +307,7 @@ void radixSort(int* arr, int len) {
     int max = *max_element(arr, arr+len);
     
     int p = 1, d;
-    vector<int> radixArr[10] = {*(new vector<int>())};
+    vector<int> radixArr[10] = {vector<int>()};
     
     while ((max / p) > 0) {
         for (int i = 0; i < len; i++) {
