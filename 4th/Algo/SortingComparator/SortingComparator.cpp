@@ -2,12 +2,13 @@
 #include <fstream>
 #include <string>
 #include <array>
+#include <vector>
 #include <functional>
 #include <chrono>
 #include <iomanip>
 
 #define NUMS_COUNT 100000
-#define PRINT_SORTED false
+#define PRINT_SORTED true
 
 using namespace std;
 
@@ -19,6 +20,8 @@ void insertionSort(int* arr, int len);
 void selectionSort(int* arr, int len);
 void quickSort(int* arr, int len);
 void mergeSort(int* arr, int len);
+void heapSort(int* arr, int len);
+void radixSort(int* arr, int len);
 
 
 // pass 'g' to generate data first then execute with 'e'
@@ -65,12 +68,14 @@ void sort_and_report(string filename, string label) {
         nums[i] = stol(buffer);
     }
 
-    array<pair<function<void(int*, int)>, string>, 5> algos = {
+    array<pair<function<void(int*, int)>, string>, 7> algos = {
         make_pair(insertionSort, "Insertion Sort"),
         make_pair(bubbleSort, "Bubble Sort"),
         make_pair(selectionSort, "Selection Sort"),
         make_pair(mergeSort, "Merge Sort"),
         make_pair(quickSort, "Quick Sort"),
+        make_pair(heapSort, "Heap Sort"),
+        make_pair(radixSort, "Radix Sort"),
     };
 
     cout << label << ":\n";
@@ -245,5 +250,84 @@ void mergeSort(int* arr, int len) {
     copy(arr, arr+len, arr1);
     msort(arr, 0, len, arr1);
     delete arr1;
+    
+}
+
+
+
+void heapSort(int* arr, int n) {
+    
+    function<void(int*,int)> heapify;
+    function<void(int*,int,int)> siftDown;
+   
+    heapify = [&heapify, &siftDown] (int* a, int len) {
+        int n = len/2 - 1;
+        for (int i = n; i >= 0; i--) {
+            siftDown(a,i,len);
+        }
+    };
+    
+    
+    siftDown = [&siftDown] (int* a, int i, int end) {
+        int largest = i, left = (2*i)+1, right = (2*i)+2;
+        
+        if ((left < end) && (a[left] > a[largest])) largest = left;
+        
+        if ((right < end) && (a[right] > a[largest])) largest = right;
+        
+        if (largest != i) {
+            swap(a[i], a[largest]);
+            siftDown(a, largest, end);
+        }
+    
+    };
+    
+    
+    
+    // heapify the array
+    // swap first and last element so that greatest goes in last
+    // repeat with decreasing end boundary
+    
+    heapify(arr, n);
+    
+    int end = n;
+    while (end > 1) {
+        end--;
+        swap(arr[0], arr[end]);
+        siftDown(arr,0,end);
+    }
+    
+}
+
+
+
+
+void radixSort(int* arr, int len) {
+        
+    int max = *max_element(arr, arr+len);
+    
+    int p = 1, d;
+    vector<int> radixArr[10] = {*(new vector<int>())};
+    
+    while ((max / p) > 0) {
+        for (int i = 0; i < len; i++) {
+            d = (arr[i] % (p * 10)) / p;
+            radixArr[d].push_back(arr[i]);
+        }
+        int i = 0;
+        
+        
+        for (vector<int>& v : radixArr) {
+            for (int& j : v) {
+                arr[i] = j;
+                i++;
+            }
+            v.clear();
+        }
+        
+        
+        p *= 10;
+    
+    }
     
 }
