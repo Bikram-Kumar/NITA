@@ -8,7 +8,7 @@
 #include <iomanip>
 
 #define NUMS_COUNT 100000
-#define PRINT_SORTED true
+#define PRINT_SORTED false
 
 using namespace std;
 

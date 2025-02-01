@@ -19,8 +19,8 @@ inline void set_value(T& var, string label) {
 }
 
 template<class T>
-inline void print_val(T arr, string label) {
-    cout << label << " = " << arr << endl;
+inline void print_val(T& var, string label) {
+    cout << label << " = " << var << endl;
 }
 
 
