@@ -11,19 +11,27 @@ vector<int> bfs(int n, vector<vector<int>>& neigh);
 
 
 int main() {
-    int n, e;
+    int n;
+    char isDirected;
+    cout << "Is graph directed (Y/N)? ";
+    cin >> isDirected;
     cout << "Enter no of nodes: ";
     cin >> n;
-    cout << "Enter no of edges: ";
-    cin >> e;
-    vector<vector<int>> edges(e, vector<int>(2));
-    cout << "Enter edges:\n";
-    for (auto& edge : edges) cin >> edge[0] >> edge[1];
+    vector<vector<int>> edges;
+    cout << "Enter edges (Enter -1 -1 to stop):\n";
+    
+    vector<int> v(2);
+    while (true) {
+        cin >> v[0] >> v[1];
+        if (v[0] == -1 || v[1] == -1) break;
+        edges.push_back(v);
+    } 
+    
 
     vector<vector<int>> neigh(n);
     for (auto& edge : edges) {
         neigh[edge[0]].push_back(edge[1]);
-        neigh[edge[1]].push_back(edge[0]);
+        if (tolower(isDirected) != 'y') neigh[edge[1]].push_back(edge[0]);
     }
     
     vector<int> obfs = bfs(n, neigh);
@@ -67,6 +75,7 @@ vector<int> dfs(int n, vector<vector<int>> &neigh){
 3  4 - 5
  \   /
    6
+
 */
 
 
