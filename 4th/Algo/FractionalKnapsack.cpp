@@ -30,5 +30,5 @@ int main () {
     }
     cout << "Max weight: " << cur << "\nMax profit: " << profit << endl;
 
-
+    return 0;
 }
