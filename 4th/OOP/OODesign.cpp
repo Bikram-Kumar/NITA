@@ -156,7 +156,7 @@ protected:
     virtual void putdata(int data) = 0;
 };
 
-class TwoWheeler : Vehicle {
+class TwoWheeler : public Vehicle {
 public:
     TwoWheeler(int yearOfMfg) {this->yearOfMfg = yearOfMfg;}
     virtual int getdata() override {
@@ -167,12 +167,12 @@ public:
     }
 };
 
-class FourWheeler : Vehicle {
+class FourWheeler final : public Vehicle {
 public:
-    int getdata() final {
+    int getdata() {
         return yearOfMfg;
     }
-    void putdata(int data) final {
+    void putdata(int data) {
         yearOfMfg = data;
     }
 };
@@ -277,11 +277,11 @@ void p5() {
 
 
 int main() {
-    // p1();
+    p1();
     p2();
-    // p3();
-    // p4();
-    // p5();
+    p3();
+    p4();
+    p5();
 
     return 0;
 }
