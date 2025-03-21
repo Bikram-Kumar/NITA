@@ -46,11 +46,11 @@ vector<vector<int>> mst_kruskal(int n, vector<vector<int>> edges) {
     };
 
     auto dsu_union = [&](int a, int b) {
-        a = dsu_find(a), b = dsu_find(b);
+        a = dsu_find(a); b = dsu_find(b);
         if (a == b) return;
         if (rank[a] < rank[b]) swap(a,b);
         parent[b] = a;
-        if (rank[a] = rank[b]) rank[a]++;
+        if (rank[a] == rank[b]) rank[a]++;
     };
 
     for (auto& e : edges) {
@@ -92,7 +92,7 @@ int main() {
     
     cout << "MST Prim:\n";
     for (auto& e: mstp) cout << e[0] << " " << e[1] << " " << e[2] << endl;
-    
+
     cout << "MST Kruskal:\n";
     for (auto& e: mstk) cout << e[0] << " " << e[1] << " " << e[2] << endl;
     

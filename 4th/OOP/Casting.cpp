@@ -74,15 +74,14 @@ public:
 };
 
 class Child : public Base{
-public:
-    void printData() {
-        cout << data << endl;
-    }
+
 };
 
 void p4() {
     Child child;
-    child.printData();
+    cout << child.data << endl;
+    child.data = 50;
+    cout << child.data << endl;
 }
 
 
