@@ -2,6 +2,7 @@
 #include <vector>
 #include <queue>
 #include <algorithm>
+#include <functional>
 using namespace std;
 
 vector<vector<int>> mst_prim(int n, vector<vector<pair<int,int>>>& neighs) {
@@ -12,18 +13,16 @@ vector<vector<int>> mst_prim(int n, vector<vector<pair<int,int>>>& neighs) {
     priority_queue<vector<int>, vector<vector<int>>, decltype(comp)> pq(comp);
     vector<bool> added(n, false);
     added[0] = true;
-    int remain = n-1;
     for (auto& e : neighs[0]) {
         pq.push({0, e.first, e.second});
     }
-    while (remain != 0) {
+    while (!pq.empty()) {
         auto top = pq.top();
         pq.pop();
         if (added[top[1]]) continue;
         added[top[1]] = true;
         mst.push_back(top);
         for (auto& e : neighs[top[1]]) pq.push({top[1], e.first, e.second});
-        remain--;
     }
 
     return mst;
@@ -34,21 +33,32 @@ vector<vector<int>> mst_kruskal(int n, vector<vector<int>> edges) {
     sort(edges.begin(), edges.end(), [&](auto& e1, auto& e2) {
         return e1[2] < e2[2];
     });
-    vector<int> tree_id(n);
-    for (int i = 0; i < n; i++) tree_id[i] = i;
+
     vector<vector<int>> mst;
 
+    vector<int> parent(n), rank(n, 0);
+    for (int i = 0; i < n; i++) parent[i] = i;
+
+    function<int(int)> dsu_find = [&](int a) {
+        if (parent[a] == a) return a;
+        parent[a] = dsu_find(parent[a]);
+        return parent[a];
+    };
+
+    auto dsu_union = [&](int a, int b) {
+        a = dsu_find(a), b = dsu_find(b);
+        if (a == b) return;
+        if (rank[a] < rank[b]) swap(a,b);
+        parent[b] = a;
+        if (rank[a] = rank[b]) rank[a]++;
+    };
+
     for (auto& e : edges) {
-        if (tree_id[e[0]] == tree_id[e[1]]) continue;
-        
+        if (dsu_find(e[0]) == dsu_find(e[1])) continue;
+        dsu_union(e[0], e[1]);
         mst.push_back(e);
-        int old_id = tree_id[e[0]], new_id = tree_id[e[1]];
-        for (int i = 0; i < n; i++) {
-            if (tree_id[i] == old_id) {
-                tree_id[i] = new_id;
-            }
-        }
     }
+
 
     return mst;
 
@@ -79,15 +89,12 @@ int main() {
 
     auto mstp = mst_prim(n, neighs);
     auto mstk = mst_kruskal(n, edges);
-    cout << "MST Kruskal:\n";
-    for (auto& e: mstk) {
-        cout << e[0] << " " << e[1] << " " << e[2] << endl;
-    }
-    cout << "MST Prim:\n";
-    for (auto& e: mstp) {
-        cout << e[0] << " " << e[1] << " " << e[2] << endl;
-    }
     
-
+    cout << "MST Prim:\n";
+    for (auto& e: mstp) cout << e[0] << " " << e[1] << " " << e[2] << endl;
+    
+    cout << "MST Kruskal:\n";
+    for (auto& e: mstk) cout << e[0] << " " << e[1] << " " << e[2] << endl;
+    
     return 0;
 }
