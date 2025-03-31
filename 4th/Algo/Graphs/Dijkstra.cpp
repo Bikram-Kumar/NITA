@@ -4,7 +4,7 @@
 #include <queue>
 using namespace std;
 
-vector<int> djikstra(int n, vector<vector<pair<int,int>>>& neighs) {
+vector<int> dijkstra(int n, vector<vector<pair<int,int>>>& neighs) {
     vector<int> dist(n, INT_MAX);
     dist[0] = 0;
     auto comp = [](auto& p1, auto& p2) {
@@ -21,10 +21,8 @@ vector<int> djikstra(int n, vector<vector<pair<int,int>>>& neighs) {
         for (auto& neigh: neighs[cur.first]) {
             if (dist[neigh.first] == INT_MAX) {
                 pq.push(make_pair(neigh.first, cur.second + neigh.second));
-                dist[neigh.first] = cur.second + neigh.second;
-            } else {
-                dist[neigh.first] = min(dist[neigh.first], cur.second + neigh.second);
             }
+            dist[neigh.first] = min(dist[neigh.first], cur.second + neigh.second);
         }
     }
 
@@ -40,7 +38,7 @@ int main() {
     cout << "Is the graph directed?(Y/N): ";
     cin >> isDir;
     vector<vector<int>> edges;
-    cout << "Enter u v w (Enter -1 X X to stop):\n";
+    cout << "Enter edges [u v w] (Enter [-1 X X] to stop):\n";
     
     vector<int> v(3);
     while (true) {
@@ -56,7 +54,7 @@ int main() {
         if (tolower(isDir) != 'y') neighs[edge[1]].push_back(make_pair(edge[0], edge[2]));
     }
 
-    auto dist = djikstra(n, neighs);
+    auto dist = dijkstra(n, neighs);
     cout << "Distances: \n";
     for (int i = 0; i < n; i++) {
         cout << i << ": " << dist[i] << endl;
