@@ -129,7 +129,7 @@ void bubbleSort(int *arr, int len){
     int temp;
     do {
         swapped = false;
-        for (int* i = arr; i < n; i++) {
+        for (int* i = arr; i < n-1; i++) {
             if ((*i) > *(i+1)) {
                 temp = (*i);
                 (*i) = *(i+1);
@@ -249,7 +249,7 @@ void mergeSort(int* arr, int len) {
     int* arr1 = new int[len];
     copy(arr, arr+len, arr1);
     msort(arr, 0, len, arr1);
-    delete arr1;
+    delete[] arr1;
     
 }
 
