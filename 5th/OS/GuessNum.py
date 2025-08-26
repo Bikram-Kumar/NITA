@@ -4,21 +4,23 @@ import random
 
 def main(stdscr):
     counter = 0
-    maxCount = 300
-    cc = 1000
+    maxCount = 300000
+    score = 1000
     num = 0
     goal = round(random.random() * 100)
-    hint = ""
+    hint = "Start!" 
+    border = "*" * 40
 
-    stdscr.clear()
     stdscr.nodelay(True)
-    #curses.curs_set(0)
+    curses.curs_set(0)
 
     while True:
-        stdscr.clear()
-        stdscr.addstr(0, 20, "Your score: " + str(cc))
-        stdscr.addstr(5, 23, "Guess: " + str(num))
-        stdscr.addstr(7, 20, hint)
+        counter += 1
+        
+        if (counter != maxCount): continue
+    
+        counter = 0
+        
         key = stdscr.getch()
         
         if (key == ord('q')):
@@ -28,19 +30,29 @@ def main(stdscr):
         elif (key == ord('\n')):
             if (num == goal):
                 hint = "You Won!"
-                
             elif (num < goal):
                 hint = "Go higher!"
             else:
                 hint = "Go lower!"
             num = 0
                 
-        if (counter == maxCount):
-            if (hint != "You Won!"): cc -= 1
-            counter = 0
-    
-        counter += 1
-
+        if (hint != "You Won!"): score -= 1
+        
+        stdscr.clear()
+        stdscr.addstr(0, 8, border)
+        stdscr.addstr(2,20,"Your score: "+str(score))
+        stdscr.addstr(7, 23, "Guess: " + str(num))
+        stdscr.addstr(12, 23, hint)
+        stdscr.addstr(15, 8, border)
+        
         stdscr.refresh()
+    
 
 curses.wrapper(main)
+
+
+
+
+
+
+
