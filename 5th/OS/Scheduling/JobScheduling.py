@@ -128,7 +128,8 @@ def main():
     
     quantum = 3
     
-    algos = [("FCFS", fcfs_scheduling), ("SJF", sjf_scheduling), ("Priority", priority_scheduling), ("Round Robin", round_robin)]
+    algos = [("FCFS", fcfs_scheduling), ("SJF", sjf_scheduling),
+             ("Priority", priority_scheduling), ("Round Robin", round_robin)]
         
     for name, algo in algos:
         print("\n", name)
