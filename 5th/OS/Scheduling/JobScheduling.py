@@ -64,7 +64,6 @@ def round_robin(processes, quantum):
     time = 0 
     queue = deque() 
     remaining = {p[0]: p[2] for p in processes} 
-    at_map = {p[0]: p[1] for p in processes} 
     queue.extend(sorted(processes, key=lambda x: x[1])) 
     result = [] 
     while queue: 
@@ -78,7 +77,7 @@ def round_robin(processes, quantum):
         time += exec_time 
         if remaining[pid] == 0: 
             ct = time 
-            tat = ct - at_map[pid] 
+            tat = ct - at
             wt = tat - bt 
             result.append((pid, at, bt, ct, tat, wt))
         else: 
