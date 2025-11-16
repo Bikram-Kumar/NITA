@@ -15,10 +15,9 @@ def mlq_scheduling(processes, quantum=2):
         time += bt 
     # Process User queue (Round Robin) 
     user_burst = {p[0]: p[2] for p in user_queue} 
-    arrival_map = {p[0]: p[1] for p in user_queue} 
     while user_queue: 
         pid, at, bt, _ = user_queue.popleft() 
-        if arrival_map[pid] > time: 
+        if at > time: 
             user_queue.append((pid, at, bt, "User")) 
             time += 1 
             continue 
