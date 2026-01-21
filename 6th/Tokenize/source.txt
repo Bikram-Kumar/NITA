@@ -1,0 +1,4 @@
+print(5)
+# comment 
+
+for 6 do 7;
