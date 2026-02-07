@@ -28,9 +28,7 @@ def main():
 
     valid_ops, invalid_ops = lexical_analyzer(source_code)
 
-    print("Valid Operators:")
-    print(valid_ops)
-    print("\nInvalid Operators:")
-    print(invalid_ops)
+    print("Valid Operators: ", valid_ops)
+    print("Invalid Operators: ", invalid_ops)
 
 main()
