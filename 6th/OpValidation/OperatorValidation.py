@@ -13,11 +13,12 @@ def lexical_analyzer(source_code):
     invalid_ops = []
 
     tokens = re.findall(r'\S+', source_code)
+    all_ops = [op for ops in valid_operators.values() for op in ops]
 
-    for token in tokens:
-        if token in [op for ops in valid_operators.values() for op in ops]:
+    for token in tokens: 
+        if token in all_ops:
             valid_ops.append(token)
-        elif any(char in token for char in ''.join([op for ops in valid_operators.values() for op in ops])):
+        elif any(char in token for char in ''.join(all_ops)):
             invalid_ops.append(token)
 
     return valid_ops, invalid_ops

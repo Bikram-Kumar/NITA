@@ -2,9 +2,9 @@ import re
 
 def check_patterns(user_input):
     patterns = {
-        "a*": r"^a*$",
-        "a*b+": r"^a*b+$",
-        "abb": r"^abb$"
+        "a*": r'^a*$',
+        "a*b+": r'^a*b+$',
+        "abb": r'^abb$'
     }
     
     matches = []
