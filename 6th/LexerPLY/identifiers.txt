@@ -1,7 +1,4 @@
 x
 y
-multiline
-comment
-hai
 ggdggfsfsdasdasdadfsfdgfdgfdfgf87
 print

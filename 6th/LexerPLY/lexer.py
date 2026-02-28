@@ -1,7 +1,5 @@
 import ply.lex as lex
 
-
-
 kw_file = open("keywords.txt", "w")
 id_file = open("identifiers.txt", "w")
 op_file = open("operators.txt", "w")
@@ -31,7 +29,7 @@ def t_COMMENT_SINGLE(t):
 
 
 def t_COMMENT_MULTI(t):
-    r"/\*.*?\*/"
+    r"/\*[\s\S]*\*/"
     pass
 
 
@@ -78,9 +76,9 @@ x = 50 + y * 2  // comment hai
 
 /* mmmm */
 
- /*
-multiline comment hai
- /*
+/*
+ multiline comment hai
+*/
 
  
 ggdggfsfsdasdasdadfsfdgfdgfdfgf87
