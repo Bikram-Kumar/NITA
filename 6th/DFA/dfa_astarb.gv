@@ -1,0 +1,6 @@
+digraph {
+	q0 [label="q0 (Start)"]
+	q1 [label="q1 (Final)" shape=doublecircle]
+	q0 -> q0 [label=a]
+	q0 -> q1 [label=b]
+}
